@@ -1,9 +1,30 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const ProductDetails = () => {
+  const [productDetails, setProductDetails] = useState([]);
+  const [quantity, setQuantity] = useState(0);
+  const { id } = useParams();
 
-    const { id } = useParams();
+  const getProductDetails = () => {
+    axios
+      .get(`http://localhost:8080/api/product/${id}`,{
+        withCredentials: true,
+      })
+      .then((response) => {
+        console.log(response);
+        setProductDetails(response?.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getProductDetails();
+  }, []);
+
   // Sample Product Data (Can be replaced with API data)
   const product = {
     id: 1,
@@ -12,52 +33,28 @@ const ProductDetails = () => {
     price: 199.99,
     image: "https://via.placeholder.com/300",
   };
-  return (
 
+  console.log(productDetails);
+
+  return (
     <>
       <div className="min-h-screen my-5">
-
         {/* Product Detail */}
-        <div className="container mx-auto mt-10 p-4 bg-white shadow rounded-md">
-          <div className="flex flex-col lg:flex-row gap-6">
-            {/* Product Image */}
-            <div className="w-full lg:w-1/2">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-auto rounded-md"
-              />
+        <div className="max-w-5xl mx-auto mt-10 p-4 bg-white shadow rounded-md">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="object-cover">
+              <img src={product.image} alt="" srcset="" />
             </div>
-
-            {/* Product Info */}
-            <div className="w-full lg:w-1/2">
-              <h2 className="text-3xl font-bold mb-4">{product.name} {id}</h2>
-              <p className="text-gray-700 mb-4">{product.description}</p>
-              <p className="text-2xl font-semibold text-green-600 mb-6">
-                ${product.price}
-              </p>
-
-              {/* Quantity Selector */}
-              <div className="mb-4 flex items-center gap-4">
-                <label className="text-lg font-medium" htmlFor="quantity">
-                  Quantity:
-                </label>
-                <input
-                  type="number"
-                  id="quantity"
-                  value={2}
-                  min="1"
-                  
-                  className="border rounded-md p-2 w-16 text-center"
-                />
+            <div>
+              <p className="text-3xl text-slate-600">Product Name</p>
+              <p className="text-xl text-slate-600 text-justify">Lcing elit. Magni incidunt necessitatibus voluptatem nihil quaerat? Nisi quam necessitatibus sint culpa cumque, accusamus eligendi quidem porro dolore natus doloribus reiciendis commodi earum.</p>
+              <div className="my-3">
+                <span className="text-xl bg-green-400 text-white px-4 py-1 rounded-lg">$2323.00</span>
+                <span className="text-xl line-through mx-4">$5000.00</span>
               </div>
-
-              {/* Add to Cart Button */}
-              <button
-                className="bg-blue-500 text-white px-6 py-3 rounded-md text-lg"
-              >
-                Add to Cart
-              </button>
+            </div>
+            <div>
+              <img src={product.image} alt="" srcset="" />
             </div>
           </div>
         </div>
