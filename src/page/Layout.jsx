@@ -8,7 +8,7 @@ const Layout = () => {
       <nav className="bg-gray-900 border-gray-200 dark:bg-gray-900">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link
-            href="https://flowbite.com/"
+            hretof="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <img

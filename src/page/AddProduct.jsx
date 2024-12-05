@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-hot-toast";
+import { toast } from "react-toastify";
 
 const AddProduct = () => {
   const {
@@ -19,13 +19,9 @@ const AddProduct = () => {
       .then((response) => {
         toast.success("Product created successfully!");
         navigate("/product");
-        console.log("Product created successfully:", response.data);
       })
       .catch((error) => {
-        console.error(
-          "Error creating product:",
-          error.response ? error.response.data : error.message
-        );
+        toast.error(error.message)
       });
   };
 

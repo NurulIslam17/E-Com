@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 
 const ProductDetails = () => {
   const [productDetails, setProductDetails] = useState([]);
-  const [quantity, setQuantity] = useState(0);
   const { id } = useParams();
 
   const getProductDetails = () => {
@@ -40,21 +39,18 @@ const ProductDetails = () => {
     <>
       <div className="min-h-screen my-5">
         {/* Product Detail */}
-        <div className="max-w-5xl mx-auto mt-10 p-4 bg-white shadow rounded-md">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="object-cover">
-              <img src={product.image} alt="" srcset="" />
+        <div className="max-w-6xl mx-auto mt-10 p-4 bg-white shadow rounded-md">
+          <div className="flex justify-between gap-4">
+            <div className="object-cover w-full md:max-w-[20rem]">
+              <img src={product.image} className="w-full h-full object-cover" alt="" srcset="" />
             </div>
             <div>
-              <p className="text-3xl text-slate-600">Product Name</p>
-              <p className="text-xl text-slate-600 text-justify">Lcing elit. Magni incidunt necessitatibus voluptatem nihil quaerat? Nisi quam necessitatibus sint culpa cumque, accusamus eligendi quidem porro dolore natus doloribus reiciendis commodi earum.</p>
+              <p className="text-3xl text-slate-600  my-3">Product Name</p>
+              <p className="text-lg text-justify">Lcing elit. Magni incidunt necessitatibus voluptatem nihil quaerat? Nisi quam necessitatibus sint culpa cumque, accusamus eligendi quidem porro dolore natus doloribus reiciendis commodi earum.</p>
               <div className="my-3">
-                <span className="text-xl bg-green-400 text-white px-4 py-1 rounded-lg">$2323.00</span>
+                <span className="text-lg bg-green-400 text-white px-4 py-1 rounded-lg">$2323.00</span>
                 <span className="text-xl line-through mx-4">$5000.00</span>
               </div>
-            </div>
-            <div>
-              <img src={product.image} alt="" srcset="" />
             </div>
           </div>
         </div>
