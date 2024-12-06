@@ -27,7 +27,7 @@ console.log(productDetails);
       <div className="min-h-screen my-5">
         {/* Product Detail */}
         <div className="max-w-6xl mx-auto mt-10 p-4 bg-white shadow-lg rounded-md border-l-8 border-5 border-green-500 border-t-2">
-          <div className="flex justify-between gap-4">
+          <div className="flex justify-start gap-4">
             <div className="object-cover w-full md:max-w-[20rem]">
               <img src={NoImg} className="w-full h-full object-cover" alt="" srcSet="" />
             </div>
@@ -35,7 +35,7 @@ console.log(productDetails);
               <p className="text-3xl text-slate-600  my-3">{productDetails.name}</p>
               <p className="text-lg text-justify">{productDetails.description}</p>
               <div className="my-3">
-                <span className="text-lg bg-green-400 text-white px-4 py-1 rounded-lg">$2323.00</span>
+                <span className="text-lg bg-green-400 text-white px-4 py-1 rounded-lg">${productDetails.price}</span>
                 <span className="text-xl text-red-600 line-through mx-4">$5000.00</span>
               </div>
             </div>
