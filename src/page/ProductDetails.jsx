@@ -1,55 +1,42 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import NoImg from "../assets/image/no-img1.jpg";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const ProductDetails = () => {
   const [productDetails, setProductDetails] = useState([]);
   const { id } = useParams();
 
-  const getProductDetails = () => {
-    axios
-      .get(`http://localhost:8080/api/product/${id}`,{
-        withCredentials: true,
-      })
-      .then((response) => {
-        console.log(response);
-        setProductDetails(response?.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   useEffect(() => {
+    const getProductDetails = async() => {
+      try{
+        const response = await axios.get(`http://localhost:8080/api/product/${id}`);
+        setProductDetails(response?.data);
+      }catch(error){
+        toast.error(error.message);
+      }
+    };
     getProductDetails();
-  }, []);
+  },[]);
+console.log(productDetails);
 
-  // Sample Product Data (Can be replaced with API data)
-  const product = {
-    id: 1,
-    name: "Wireless Headphones",
-    description: "High-quality wireless headphones with noise cancellation.",
-    price: 199.99,
-    image: "https://via.placeholder.com/300",
-  };
-
-  console.log(productDetails);
 
   return (
     <>
       <div className="min-h-screen my-5">
         {/* Product Detail */}
-        <div className="max-w-6xl mx-auto mt-10 p-4 bg-white shadow rounded-md">
+        <div className="max-w-6xl mx-auto mt-10 p-4 bg-white shadow-lg rounded-md border-l-8 border-5 border-green-500 border-t-2">
           <div className="flex justify-between gap-4">
             <div className="object-cover w-full md:max-w-[20rem]">
-              <img src={product.image} className="w-full h-full object-cover" alt="" srcset="" />
+              <img src={NoImg} className="w-full h-full object-cover" alt="" srcSet="" />
             </div>
             <div>
-              <p className="text-3xl text-slate-600  my-3">Product Name</p>
-              <p className="text-lg text-justify">Lcing elit. Magni incidunt necessitatibus voluptatem nihil quaerat? Nisi quam necessitatibus sint culpa cumque, accusamus eligendi quidem porro dolore natus doloribus reiciendis commodi earum.</p>
+              <p className="text-3xl text-slate-600  my-3">{productDetails.name}</p>
+              <p className="text-lg text-justify">{productDetails.description}</p>
               <div className="my-3">
                 <span className="text-lg bg-green-400 text-white px-4 py-1 rounded-lg">$2323.00</span>
-                <span className="text-xl line-through mx-4">$5000.00</span>
+                <span className="text-xl text-red-600 line-through mx-4">$5000.00</span>
               </div>
             </div>
           </div>
