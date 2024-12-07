@@ -2,11 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import NoImg from "../assets/image/no-img2.jpg";
-import { TrashIcon } from "@heroicons/react/16/solid";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
 import Swal from "sweetalert2";
+import EditModal from "../component/product/EditModal";
 
-const ProductGrid = ({ filteredProducts }) => {
+const ProductGrid = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
   const [products, setProducts] = useState([]);
+  const [productId,setProductId] = useState(null);
 
   const getAllProduct = () => {
     axios
@@ -49,6 +52,11 @@ const ProductGrid = ({ filteredProducts }) => {
         showConfirmButton: false,
       });
     }
+  };
+
+  const handleOpenEditModal = (id) => {
+    setModalOpen(true);
+    setProductId(id);
   };
   useEffect(() => {
     getAllProduct();
@@ -110,9 +118,7 @@ const ProductGrid = ({ filteredProducts }) => {
                 </p>
 
                 <div className="my-5">
-                  <span className="text-xl mx-4">
-                  ${product.price}
-                  </span>
+                  <span className="text-xl mx-4">${product.price}</span>
                   <span className="text-red-600 line-through mx-4">
                     $5000.00
                   </span>
@@ -145,6 +151,12 @@ const ProductGrid = ({ filteredProducts }) => {
                   className="w-4 h-4 text-white"
                 />
               </span>
+              <span className="absolute -top-2 right-6 bg-green-600 p-2 rounded-full">
+                <PencilSquareIcon
+                  onClick={() => handleOpenEditModal(product.id)}
+                  className="w-4 h-4 text-white"
+                />
+              </span>
             </div>
           ))
         ) : (
@@ -153,6 +165,14 @@ const ProductGrid = ({ filteredProducts }) => {
           </div>
         )}
       </div>
+
+      <EditModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        title="Edit Product"
+        productId={productId}
+        customClass ="max-w-xl"
+      />
     </>
   );
 };
