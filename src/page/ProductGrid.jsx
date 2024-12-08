@@ -9,7 +9,7 @@ import EditModal from "../component/product/EditModal";
 const ProductGrid = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [products, setProducts] = useState([]);
-  const [productId,setProductId] = useState(null);
+  const [productId, setProductId] = useState(null);
 
   const getAllProduct = () => {
     axios
@@ -113,8 +113,10 @@ const ProductGrid = () => {
                     4.0
                   </span>
                 </div>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                  {product.description}
+                <p className="mb-3 font-normal text-justify text-gray-700 dark:text-gray-400">
+                  {product.description.length > 100
+                    ? `${product.description.substring(0, 100)}...`
+                    : product.description}
                 </p>
 
                 <div className="my-5">
@@ -171,7 +173,8 @@ const ProductGrid = () => {
         onClose={() => setModalOpen(false)}
         title="Edit Product"
         productId={productId}
-        customClass ="max-w-xl"
+        getAllProduct={getAllProduct}
+        customClass="max-w-xl"
       />
     </>
   );
